@@ -6,3 +6,49 @@ git branch -M main
 git remote add origin https://github.com/anitzsch/RAS-205-Project.git
 git push -u origin main
 
+import math
+
+class EmergencyResponseSystem:
+    def __init__(self, ambulances):
+        # Converts unsorted data to a sorted list  by x-coordinate for divide-and-conquer
+        self.ambulances = sorted(ambulances.items(), key=lambda item: item[1][0])
+
+    def euclidean_distance(self, point1, point2):
+        return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
+
+    def find_nearest_ambulance(self, accident_location):
+        def divide_and_conquer(amb_list):
+            if len(amb_list) <= 3:
+                # Brute force when the list is small
+                return min(amb_list, key=lambda amb: self.euclidean_distance(amb[1], accident_location))
+
+            mid = len(amb_list) // 2
+            left = amb_list[:mid]
+            right = amb_list[mid:]
+
+            nearest_left = divide_and_conquer(left)
+            nearest_right = divide_and_conquer(right)
+
+            # Compare the best from both halves
+            dist_left = self.euclidean_distance(nearest_left[1], accident_location)
+            dist_right = self.euclidean_distance(nearest_right[1], accident_location)
+
+            return nearest_left if dist_left <= dist_right else nearest_right
+
+        return divide_and_conquer(self.ambulances)
+
+
+ambulances = {
+    'A': (2, 4),
+    'B': (10, 3),
+    'C': (5, 8),
+    'D': (7, 1),
+    'E': (4, 5)
+}
+
+accident_location = (6, 2)
+
+system = EmergencyResponseSystem(ambulances)
+nearest_key, nearest_coords = system.find_nearest_ambulance(accident_location)
+
+print(f"Nearest ambulance is {nearest_key} at {nearest_coords}")
