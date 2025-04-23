@@ -6,6 +6,7 @@ git branch -M main
 git remote add origin https://github.com/anitzsch/RAS-205-Project.git
 git push -u origin main
 
+# 1. Algorithm Implementation
 import math
 
 class EmergencyResponseSystem:
@@ -51,6 +52,7 @@ accident_location = (6, 2)
 system = EmergencyResponseSystem(ambulances)
 nearest_key, nearest_coords = system.find_nearest_ambulance(accident_location)
 
+# 2. Input and Output Requirements
 print("Coordinate Map:")
 for key, coords in ambulances.items(): #Looping through ambulances in list to print coordiantes
     print(f"{key}: {coords}")
@@ -58,7 +60,7 @@ for key, coords in ambulances.items(): #Looping through ambulances in list to pr
 print(f"\nAccident Location: {accident_location}")
 print(f"Nearest ambulance is {nearest_key} at {nearest_coords}")
 
-# Test Cases 
+# 3. Test Cases 
 def run_tests():
     test_cases = [
         {
