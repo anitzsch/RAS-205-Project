@@ -57,3 +57,50 @@ for key, coords in ambulances.items(): #Looping through ambulances in list to pr
 
 print(f"\nAccident Location: {accident_location}")
 print(f"Nearest ambulance is {nearest_key} at {nearest_coords}")
+
+# Test Cases 
+def run_tests():
+    test_cases = [
+        {
+            "description": "Original Problem",
+            "ambulances": {'A': (2, 4), 'B': (10, 3), 'C': (5, 8), 'D': (7, 1), 'E': (4, 5)},
+            "accident": (6, 2)
+        },
+        {
+            "description": "Base Test Case",
+            "ambulances": {'A': (3, 7), 'B': (8, 2), 'C': (5, 5)},
+            "accident": (7, 4)
+        },
+        {
+            "description": "Edge Case - Tie Distances",
+            "ambulances": {'A': (3, 3), 'B': (8, 5), 'C': (6, 3), 'D': (6, 3), 'E': (5, 5)},
+            "accident": (6, 3)
+        },
+        {
+            "description": "Single Ambulance",
+            "ambulances": {'A': (5, 5)},
+            "accident": (6, 2)
+        },
+        {
+            "description": "Negative and Large Coordinates",
+            "ambulances": {
+                'A': (-100, -50),
+                'B': (100, 600),
+                'C': (500, 400),
+                'D': (-200, -300),
+                'E': (250, 250)
+            },
+            "accident": (0, 0)
+        }
+    ]
+    for case in test_cases:
+        system = EmergencyResponseSystem(case["ambulances"]) # Current ambulance locations
+        nearest = system.find_nearest_ambulance(case["accident"]) # Finds the ambulance closest to the accident
+        print("\n-{}".format(case["description"]))
+        print("Ambulance Locations:", case["ambulances"])
+        print("Accident Location:", case["accident"])
+        print("Nearest Ambulance:", nearest)
+
+if __name__ == "__main__":
+    run_tests()
+
