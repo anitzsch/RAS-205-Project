@@ -51,4 +51,9 @@ accident_location = (6, 2)
 system = EmergencyResponseSystem(ambulances)
 nearest_key, nearest_coords = system.find_nearest_ambulance(accident_location)
 
+print("Coordinate Map:")
+for key, coords in ambulances.items(): #Looping through ambulances in list to print coordiantes
+    print(f"{key}: {coords}")
+
+print(f"\nAccident Location: {accident_location}")
 print(f"Nearest ambulance is {nearest_key} at {nearest_coords}")
