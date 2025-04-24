@@ -65,17 +65,33 @@ def run_tests():
     test_cases = [
         {
             "description": "Original Problem",
-            "ambulances": {'A': (2, 4), 'B': (10, 3), 'C': (5, 8), 'D': (7, 1), 'E': (4, 5)},
+            "ambulances": {
+                'A': (2, 4), 
+                'B': (10, 3), 
+                'C': (5, 8), 
+                'D': (7, 1), 
+                'E': (4, 5)
+            },
             "accident": (6, 2)
         },
         {
             "description": "Base Test Case",
-            "ambulances": {'A': (3, 7), 'B': (8, 2), 'C': (5, 5)},
+            "ambulances": {
+                'A': (3, 7),
+                'B': (8, 2),
+                'C': (5, 5)
+            },
             "accident": (7, 4)
         },
         {
             "description": "Edge Case - Tie Distances",
-            "ambulances": {'A': (3, 3), 'B': (8, 5), 'C': (6, 3), 'D': (6, 3), 'E': (5, 5)},
+            "ambulances": {
+                'A': (3, 3),
+                'B': (8, 5), 
+                'C': (6, 3), 
+                'D': (6, 3), 
+                'E': (5, 5)
+                },
             "accident": (6, 3)
         },
         {
@@ -95,13 +111,21 @@ def run_tests():
             "accident": (0, 0)
         }
     ]
+    
     for case in test_cases:
-        system = EmergencyResponseSystem(case["ambulances"]) # Current ambulance locations
-        nearest = system.find_nearest_ambulance(case["accident"]) # Finds the ambulance closest to the accident
-        print("\n-{}".format(case["description"]))
-        print("Ambulance Locations:", case["ambulances"])
-        print("Accident Location:", case["accident"])
-        print("Nearest Ambulance:", nearest)
+        system = EmergencyResponseSystem(case["ambulances"])
+        nearest_key, nearest_coords = system.find_nearest_ambulance(case["accident"]) 
+        
+        print("\n" + "-" * 40)
+        print(f"Test Case: {case['description']}")
+        # structured ambulance locations
+        print(f"{'Ambulance':<10}{'Location':<15}")
+        
+        for key, coords in case["ambulances"].items():
+            print(f"{key:<3}{str(coords):<15}")
+
+        print(f"\nAccident Location: {case['accident']}")
+        print(f"Nearest ambulance is {nearest_key} at {nearest_coords}")
 
 if __name__ == "__main__":
     run_tests()
